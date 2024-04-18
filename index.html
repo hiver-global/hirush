@@ -705,7 +705,31 @@
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+            <script type="text/javascript">
+                (function() {
+                    // https://dashboard.emailjs.com/admin/account
+                    emailjs.init({
+                      publicKey: "te8cofIYkZY9ZNIdu",
+                    });
+                })();
+            </script>
+            <script type="text/javascript">
+                window.onload = function() {
+                    document.getElementById('getintouch').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        
+                        emailjs.sendForm('service_jjgxjy9', 'template_mmjxkwd', this)
+                            .then(() => {
+                                console.log('SUCCESS!');
+                                alert("Your Message Send Successfully")
+                            }, (error) => {
+                                console.log('FAILED...', error);
+                            });
+                    });
+                }
+            </script>            
+            <form id="getintouch" role="form" class="php-email-form">
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Your Name</label>
@@ -726,7 +750,7 @@
               </div>
               <div class="my-3">
                 <div class="loading">Loading</div>
-                <div class="error-message"></div>
+                <!-- <div class="error-message"></div> -->
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
